@@ -53,7 +53,7 @@ public class MainApp extends Application {
     
     public static void main(String[] args) {   
         launch(args);
-        
+        //Test Comment
         // TODO: Remove try catch block, used only for testing.
         try {
             OCR.Tesseract();
