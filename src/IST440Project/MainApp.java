@@ -57,6 +57,7 @@ public class MainApp extends Application {
         // TODO: Remove try catch block, used only for testing.
         try {
             OCR.Tesseract();
+            CaesarBruteForce.Caesar("alza");
         } catch (IOException ex) {
             Logger.getLogger(MainApp.class.getName()).log(Level.SEVERE, null, ex);
         }
