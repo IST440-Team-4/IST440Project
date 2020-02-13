@@ -38,20 +38,23 @@ import net.sourceforge.tess4j.TesseractException;
  */
 public class OCR {
     
-  public static void Tesseract () throws IOException {
+  public static String Tesseract (File ocrInput) throws IOException {
       
-      String result="";  
-      File imageFile = new File("assets/images/OCR_Test.pdf");
+        String result="";
+      File imageFile = ocrInput;
           
       ITesseract OCR = new Tesseract();
       OCR.setDatapath("assets/tessdata");
       
-      try {
+      try 
+      {
         result = OCR.doOCR(imageFile);
-        System.out.print(result);
-      } catch (TesseractException e) {
+      } 
+      catch (TesseractException e) 
+      {
           System.err.println(e.getMessage());
       }
+      return result;
     
     } // Tesseract ()
   

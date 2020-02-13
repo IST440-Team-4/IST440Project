@@ -44,6 +44,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        
       Parent root = FXMLLoader.load(getClass().getResource("LogInFXML.fxml"));
       Scene scene = new Scene(root);
       stage.setTitle("Decryption App");
@@ -51,16 +52,9 @@ public class MainApp extends Application {
       stage.show();
     }
     
-    public static void main(String[] args) {   
+    public static void main(String[] args) 
+    {   
         launch(args);
-        //Test Comment
-        // TODO: Remove try catch block, used only for testing.
-        try {
-            OCR.Tesseract();
-            CaesarBruteForce.Caesar("alza");
-        } catch (IOException ex) {
-            Logger.getLogger(MainApp.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
 } // MainApp ()
