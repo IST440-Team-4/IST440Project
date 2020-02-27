@@ -40,7 +40,7 @@ public class OCR {
     
   public static String Tesseract (File ocrInput) throws IOException {
       
-        String result="";
+      String result="";
       File imageFile = ocrInput;
           
       ITesseract OCR = new Tesseract();
