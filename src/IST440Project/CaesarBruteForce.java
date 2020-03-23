@@ -11,9 +11,10 @@ package IST440Project;
  */
 public class CaesarBruteForce 
 {
-    public static void Caesar (String ciphertext)
+    public static String Caesar (String ciphertext)
     {
         String text="";
+        String returnString="";
         String c = ciphertext;
         char charCipherText [] = c.toCharArray();
         int index =0;
@@ -30,8 +31,8 @@ public class CaesarBruteForce
                 chr = (char) (index+97);
                 text += chr;
             }
-            System.out.println(text);
+            returnString += "\n" + text;
         }
-        
+        return returnString;
     }
 }

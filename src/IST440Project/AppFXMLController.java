@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
@@ -27,17 +28,40 @@ import javafx.stage.FileChooser;
         
 public class AppFXMLController implements Initializable {
     
+    //Initialize JavaFX buttons
     @FXML
     private Button FileButton;
     @FXML
     private Button ocrButton;
     @FXML
-    private TextArea ocrOutput;
+    private Button decryptButton;
+    @FXML
+    private Button translateButton;
+    
+    //Initialize label to show user file chosen
     @FXML
     private Label FilePath;
+    
+    //Initialize Dropdown menus
+    @FXML
+    private ChoiceBox decryptionChooser;
+    @FXML
+    private ChoiceBox languageChooser;
+    
+    //Initialize Text Areas
+    @FXML
+    private TextArea decryptionOutput;
+    @FXML
+    private TextArea translationOutput;
+    @FXML
+    private TextArea ocrOutput;
+
     File ocrInput;
+    String ocrResult;
+    
     
     //Allows user to browse for file to pass into OCR scanner
+    @FXML
     public void FileButtonAction(ActionEvent event)
     {
         FileChooser fc = new FileChooser(); //Create Filechooser object
@@ -55,26 +79,54 @@ public class AppFXMLController implements Initializable {
     }
     
     //Takes File Input from FileButtonAction Method and runs OCR
+    @FXML
     public void ocrButtonAction(ActionEvent event)
-    {
-        String result="";
-                
+    {         
         try 
         {
-            result = OCR.Tesseract(ocrInput);
+            ocrResult = OCR.Tesseract(ocrInput);
         } 
         catch (IOException ex) 
         {
             Logger.getLogger(MainApp.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ocrOutput.setText(result);
+        ocrOutput.setText(ocrResult);
     }
+    
+    //Runs selected decryption method on OCR output string
+    @FXML
+    public void decryptionButtonaction(ActionEvent event)
+    {
+        String decryptionChoice = decryptionChooser.getValue().toString();
+        String encryptedText = ocrResult.trim();
+        if (decryptionChoice.equals("Caesar"))
+        {
+            decryptionOutput.setText(CaesarBruteForce.Caesar(encryptedText));
+        }
+    }
+    
+    //Run selected translation operation on decryption output
+    @FXML
+    public void translateButtonAction(ActionEvent event)
+    {
+        
+    }
+    
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        //Add options to decryption dropdown
+        decryptionChooser.getItems().add("Atbash");
+        decryptionChooser.getItems().add("Caesar");
+        decryptionChooser.getItems().add("Word Scramble");
+        
+        //Add options to translation dropdown
+        languageChooser.getItems().add("Spanish to English");
+        languageChooser.getItems().add("French to English");
+        languageChooser.getItems().add("German to English");
     }    
     
     

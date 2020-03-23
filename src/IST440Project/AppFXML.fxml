@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,13 +14,19 @@
             <Font size="48.0" />
          </font>
       </Label>
-      <Button fx:id="FileButton" layoutX="23.0" layoutY="59.0" mnemonicParsing="false" onAction="#FileButtonAction" text="Select File" />
-      <Button fx:id="ocrButton" layoutX="24.0" layoutY="94.0" mnemonicParsing="false" onAction="#ocrButtonAction" text="OCR Scan" />
-      <TextArea fx:id="ocrOutput" layoutX="23.0" layoutY="131.0" prefHeight="200.0" prefWidth="200.0" />
-      <Label fx:id="FilePath" layoutX="98.0" layoutY="62.0" prefHeight="20.0" prefWidth="124.0" textFill="WHITE">
+      <Button fx:id="FileButton" layoutX="86.0" layoutY="70.0" mnemonicParsing="false" onAction="#FileButtonAction" text="Select File" />
+      <Button fx:id="ocrButton" layoutX="87.0" layoutY="100.0" mnemonicParsing="false" onAction="#ocrButtonAction" text="OCR Scan" />
+      <TextArea fx:id="ocrOutput" layoutX="23.0" layoutY="131.0" prefHeight="304.0" prefWidth="195.0" />
+      <Label fx:id="FilePath" layoutX="156.0" layoutY="73.0" prefHeight="20.0" prefWidth="124.0" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <ChoiceBox fx:id="decryptionChooser" layoutX="275.0" layoutY="71.0" prefWidth="150.0" />
+      <Button fx:id="decryptButton" layoutX="301.0" layoutY="100.0" mnemonicParsing="false" onAction="#decryptionButtonaction" text="Run Decryption" />
+      <TextArea fx:id="decryptionOutput" layoutX="253.0" layoutY="131.0" prefHeight="304.0" prefWidth="195.0" />
+      <TextArea fx:id="translationOutput" layoutX="480.0" layoutY="131.0" prefHeight="304.0" prefWidth="195.0" />
+      <Button fx:id="translateButton" layoutX="528.0" layoutY="100.0" mnemonicParsing="false" text="Run Translation" />
+      <ChoiceBox fx:id="languageChooser" layoutX="503.0" layoutY="70.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
