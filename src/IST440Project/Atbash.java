@@ -11,7 +11,7 @@ package IST440Project;
  */
 public class Atbash {
     
-    public static String AtbashDecrypt(String encryptedText)
+    public static String AtbashDecrypt(String cipherText)
     {
         String alphabet ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String reverseAlphabet ="";
@@ -23,9 +23,9 @@ public class Atbash {
         
         String decipheredText ="";
         
-        for (int i=0; i<encryptedText.length(); i++)
+        for (int i=0; i<cipherText.length(); i++)
         {
-            if(encryptedText.charAt(i) == (char)32)
+            if(cipherText.charAt(i) == (char)32)
             {
                 decipheredText +=" ";
             }
@@ -33,15 +33,14 @@ public class Atbash {
             {
                 for(int j=0; j<reverseAlphabet.length(); j++)
                 {
-                    if (encryptedText.charAt(i) == reverseAlphabet.charAt(j))
+                    if (cipherText.charAt(i) == reverseAlphabet.charAt(j))
                     {
                         decipheredText += alphabet.charAt(j);
                         break;
                     }
-                } //inner for         
+                } //inner for   
             } //else
         } //outer for
-        
         return decipheredText;
     }
     

@@ -103,6 +103,16 @@ public class AppFXMLController implements Initializable {
         {
             decryptionOutput.setText(CaesarBruteForce.Caesar(encryptedText));
         }
+        
+        else if (decryptionChoice.equals("Atbash"))
+        {
+            decryptionOutput.setText(Atbash.AtbashDecrypt(encryptedText.toUpperCase()));
+        }
+        
+        else if (decryptionChoice.equals("Word Scramble"))
+        {
+            decryptionOutput.setText(WordDescramble.WordDescrambler(encryptedText));
+        }
     }
     
     //Run selected translation operation on decryption output
