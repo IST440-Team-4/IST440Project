@@ -26,20 +26,26 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /*
  *  FXML Controller class
  *
  *  Description:
  *    TODO:
- * 
+ *
  *  Contributors:
  *    Austin J. Lonjin (AJL)
  *    William E. Morris (WEM)
  *    Joshua Sadecky (JS)
  *    Robert Sanders (RS)
  *    Simon S. Stroh (SSS)
- *      
+ *
  *  Changes:
  *    02/07/20   Initial Release                             AJL,WEM,JS,RS,SSS
  */
@@ -47,13 +53,13 @@ public class LogInFXMLController implements Initializable {
 
     @FXML
     private Label LionCipher;
-    
+
     @FXML
     private Label loginstatus;
-    
+
     @FXML
     private TextField txtUsername;
-    
+
     @FXML
     private TextField txtPassword;
     @FXML
@@ -70,31 +76,38 @@ public class LogInFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     public void Login(ActionEvent event) throws Exception
     {
-        if (txtUsername.getText().equals("pennstate") && txtPassword.getText().equals("pennstate"))
-        {
-           loginstatus.setText("Successful Login");
-           
-           ((Node)(event.getSource())).getScene().getWindow().hide(); //Closes log in wind
-          
-           //Loads up second FXML page
-           Stage stage = new Stage();
-           Parent root = FXMLLoader.load(getClass().getResource("AppFXML.fxml"));
-           Scene scene = new Scene(root);
-           stage.setTitle("Decryption App");
-           stage.setScene(scene);
-           stage.show();
-           
+        URL url = new URL("http://35.225.50.251:3000/login");
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("POST");
+        con.setDoOutput(true);
+        OutputStream os = con.getOutputStream();
+        String postParams = "email=" + txtUsername.getText() + "&password=" + txtPassword.getText();
+        os.write(postParams.getBytes());
+        os.flush();
+        os.close();
+        int responseCode = con.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+          // Response code 200 equals `HttpURLConnection.HTTP_OK`
+          loginstatus.setText("Successful Login");
+
+          ((Node)(event.getSource())).getScene().getWindow().hide(); //Closes log in wind
+
+          //Loads up second FXML page
+          Stage stage = new Stage();
+          Parent root = FXMLLoader.load(getClass().getResource("AppFXML.fxml"));
+          Scene scene = new Scene(root);
+          stage.setTitle("Decryption App");
+          stage.setScene(scene);
+          stage.show();
+        } else if (responseCode == 400) {
+          // Response code 400 means authentication failed.
+          loginstatus.setText("Incorrect Username or Password.");
         }
-        
-        else
-        {
-            loginstatus.setText("Incorrect Username or Password.");
-        }
-        
-    }   
+
+    }
 }
