@@ -59,7 +59,42 @@ public class AppFXMLController implements Initializable {
     File ocrInput;
     String ocrResult;
     
+    /**
+     * 
+     * @param event
+     */
+    @FXML
+    private void handleMenuAbout (ActionEvent event) {
+        
+    } // handleMenuAbout ()
+      
+    /**
+     * 
+     * @param event 
+     */
+    @FXML
+    private void handleMenuExit (ActionEvent event) {  
+        
+    } // handleMenuExit ()
     
+    /**
+     * 
+     * @param event 
+     */
+    @FXML
+    private void handleMenuOpen (ActionEvent event) {
+        
+    } // handleMenuOpen ()
+    
+    /**
+     * 
+     * @param event 
+     */
+    @FXML
+    private void handleMenuSave (ActionEvent event) {
+        
+    } // handleMenuSave ()
+       
     //Allows user to browse for file to pass into OCR scanner
     @FXML
     public void FileButtonAction(ActionEvent event)
