@@ -78,11 +78,13 @@ public class AppFXMLController implements Initializable {
     } // handleMenuExit ()
     
     /**
-     * 
-     * @param event 
+     * Will perform the actions required when the user selects
+     * the File Open Menu, or selects the Open Image button.
      */
     @FXML
-    private void handleMenuOpen (ActionEvent event) {
+    private void handleMenuOpen () {
+        
+        openImageFile ();
         
     } // handleMenuOpen ()
     
@@ -113,6 +115,31 @@ public class AppFXMLController implements Initializable {
         
     }
     
+    /**
+     * Will verify if the passed file object is a valid image file
+     * 
+     * @param imageFile the file object to validate
+     * @return if the passed file object is valid
+     */
+    private boolean isImageFileValid (File imageFile) {
+        
+        // Local Variables
+        boolean returnValue;        
+       
+        // Initialize Local Variables
+        returnValue = true;
+        
+        // Test if passed file is null
+        if (imageFile == null) {
+            returnValue = false;
+        }
+        
+        // TODO: Add file type check
+        
+        return (returnValue);
+        
+    } // isImageFileValid ()
+    
     //Takes File Input from FileButtonAction Method and runs OCR
     @FXML
     public void ocrButtonAction(ActionEvent event)
@@ -127,6 +154,31 @@ public class AppFXMLController implements Initializable {
         }
         ocrOutput.setText(ocrResult);
     }
+    
+    /**
+     * Will display a open File dialog for the user to select an image file. 
+     * After the user selects the file, will verify the file is a valid image
+     * file.
+     */
+    private void openImageFile () {
+        
+        // Local Variables
+        FileChooser fc;
+        
+        // Initialize Local Variables
+        fc = new FileChooser();
+        
+        // Display File Chooser Dialog and store results
+        ocrInput = fc.showOpenDialog(null);
+        
+        if (isImageFileValid (ocrInput)) {
+            FilePath.setText(ocrInput.getName());
+        } else {
+            // TODO: Add error dialog box, and logging
+            FilePath.setText("Error");
+        }
+    
+    } // openImageFile ()
     
     //Runs selected decryption method on OCR output string
     @FXML
