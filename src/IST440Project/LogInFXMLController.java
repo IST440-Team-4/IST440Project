@@ -32,6 +32,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.logging.Level;
 
 /*
  *  FXML Controller class
@@ -109,5 +110,9 @@ public class LogInFXMLController implements Initializable {
           loginstatus.setText("Incorrect Username or Password.");
         }
 
+    }
+    
+        public LogInFXMLController() throws IOException {
+        AppLogger.log(Level.INFO, AppLogger.class.getName());
     }
 }

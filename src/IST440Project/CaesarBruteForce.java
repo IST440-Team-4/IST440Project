@@ -5,6 +5,9 @@
  */
 package IST440Project;
 
+import java.io.IOException;
+import java.util.logging.Level;
+
 /**
  *
  * @author austi
@@ -34,5 +37,8 @@ public class CaesarBruteForce
             returnString += "\n" + text;
         }
         return returnString;
+    }
+    public CaesarBruteForce() throws IOException {
+        AppLogger.log(Level.INFO, AppLogger.class.getName());
     }
 }

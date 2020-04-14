@@ -139,5 +139,7 @@ public class AppFXMLController implements Initializable {
         languageChooser.getItems().add("German to English");
     }    
     
-    
+       public AppFXMLController() throws IOException {
+        AppLogger.log(Level.INFO, AppLogger.class.getName());
+    } 
 }

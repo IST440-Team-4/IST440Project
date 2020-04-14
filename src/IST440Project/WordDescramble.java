@@ -5,8 +5,10 @@
  */
 package IST440Project;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  *
@@ -44,4 +46,8 @@ public class WordDescramble
         returnString = sb.toString();
         return returnString;
     }    
+        public WordDescramble() throws IOException {
+        AppLogger.log(Level.INFO, AppLogger.class.getName());
+    }
+    
 }

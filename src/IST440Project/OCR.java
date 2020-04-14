@@ -16,6 +16,7 @@ package IST440Project;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
@@ -57,5 +58,9 @@ public class OCR {
       return result;
     
     } // Tesseract ()
+  
+      public OCR() throws IOException {
+        AppLogger.log(Level.INFO, AppLogger.class.getName());
+    }
   
  } // OCR Class

@@ -5,6 +5,9 @@
  */
 package IST440Project;
 
+import java.io.IOException;
+import java.util.logging.Level;
+
 /**
  *
  * @author austi
@@ -43,5 +46,7 @@ public class Atbash {
         } //outer for
         return decipheredText;
     }
-    
+        public Atbash() throws IOException {
+        AppLogger.log(Level.INFO, AppLogger.class.getName());
+    }
 }

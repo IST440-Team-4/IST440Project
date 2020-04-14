@@ -52,6 +52,10 @@ public class MainApp extends Application {
       stage.show();
     }
     
+    public MainApp() throws IOException {
+        AppLogger.log(Level.INFO, AppLogger.class.getName());
+    }
+    
     public static void main(String[] args) 
     {   
         launch(args);
