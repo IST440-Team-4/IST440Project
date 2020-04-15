@@ -139,6 +139,8 @@ public class AppFXMLController implements Initializable {
     
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -153,7 +155,11 @@ public class AppFXMLController implements Initializable {
         languageChooser.getItems().add("German to English");
     }    
     
-       public AppFXMLController() throws IOException {
+    /**
+     *
+     * @throws IOException
+     */
+    public AppFXMLController() throws IOException {
         AppLogger.log(Level.INFO, AppLogger.class.getName());
     } 
 }

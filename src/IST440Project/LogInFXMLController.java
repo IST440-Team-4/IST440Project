@@ -50,6 +50,12 @@ import java.util.logging.Level;
  *  Changes:
  *    02/07/20   Initial Release                             AJL,WEM,JS,RS,SSS
  */
+
+/**
+ *
+ * @author austi
+ */
+
 public class LogInFXMLController implements Initializable {
 
     @FXML
@@ -73,6 +79,8 @@ public class LogInFXMLController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -117,7 +125,11 @@ public class LogInFXMLController implements Initializable {
 
     }
     
-        public LogInFXMLController() throws IOException {
+    /**
+     *
+     * @throws IOException
+     */
+    public LogInFXMLController() throws IOException {
         AppLogger.log(Level.INFO, AppLogger.class.getName());
     }
 }

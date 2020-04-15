@@ -54,7 +54,12 @@ public class WordDescramble
         returnString = sb.toString();
         return returnString;
     }    
-        public WordDescramble() throws IOException {
+
+    /**
+     *
+     * @throws IOException
+     */
+    public WordDescramble() throws IOException {
         AppLogger.log(Level.INFO, AppLogger.class.getName());
     }
     

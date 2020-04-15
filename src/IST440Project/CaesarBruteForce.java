@@ -45,6 +45,11 @@ public class CaesarBruteForce
         }
         return returnString;
     }
+
+    /**
+     *
+     * @throws IOException
+     */
     public CaesarBruteForce() throws IOException {
         AppLogger.log(Level.INFO, AppLogger.class.getName());
     }

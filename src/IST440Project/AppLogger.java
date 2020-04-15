@@ -22,7 +22,11 @@ public class AppLogger {
     
         static Logger logger = Logger.getLogger(AppLogger.class.getName());
     
-        public AppLogger() throws IOException{
+    /**
+     *
+     * @throws IOException
+     */
+    public AppLogger() throws IOException{
         LogManager.getLogManager().reset();
         logger.setLevel(Level.ALL);
         try{
@@ -47,7 +51,12 @@ public class AppLogger {
     return logger;
     }
     
-public static void log(Level level, String msg){
+    /**
+     *
+     * @param level
+     * @param msg
+     */
+    public static void log(Level level, String msg){
     getLogger().log(level, msg);
     System.out.println(msg);
 }

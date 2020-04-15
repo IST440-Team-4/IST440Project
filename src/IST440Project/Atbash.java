@@ -54,7 +54,12 @@ public class Atbash {
         } //outer for
         return decipheredText;
     }
-        public Atbash() throws IOException {
+
+    /**
+     *
+     * @throws IOException
+     */
+    public Atbash() throws IOException {
         AppLogger.log(Level.INFO, AppLogger.class.getName());
     }
 }
