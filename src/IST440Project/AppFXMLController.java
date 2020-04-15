@@ -21,9 +21,10 @@ import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 
 /**
- * FXML Controller class
+ * FXML Controller class for main application window
+ * Contains all action listeners for buttons within main application window and calls all appropriate methods
  *
- * @author austi
+ * @author AJL5818
  */
         
 public class AppFXMLController implements Initializable {
@@ -60,7 +61,11 @@ public class AppFXMLController implements Initializable {
     String ocrResult;
     
     
-    //Allows user to browse for file to pass into OCR scanner
+    /**
+     * Constructs FileChooser object
+     * Allows for users to navigate to image file of encrypted text on their system
+     * @param event Select File button is clicked
+     */
     @FXML
     public void FileButtonAction(ActionEvent event)
     {
@@ -78,7 +83,10 @@ public class AppFXMLController implements Initializable {
         
     }
     
-    //Takes File Input from FileButtonAction Method and runs OCR
+    /**
+     * Calls OCR method on the image file previously selected
+     * @param event Run OCR button is clicked
+     */
     @FXML
     public void ocrButtonAction(ActionEvent event)
     {         
@@ -93,7 +101,10 @@ public class AppFXMLController implements Initializable {
         ocrOutput.setText(ocrResult);
     }
     
-    //Runs selected decryption method on OCR output string
+    /**
+     * This method calls various decryption methods based upon the selected value in the Decryption Selection dropdown.
+     * @param event Run Decryption button is clicked
+     */
     @FXML
     public void decryptionButtonaction(ActionEvent event)
     {
@@ -115,7 +126,10 @@ public class AppFXMLController implements Initializable {
         }
     }
     
-    //Run selected translation operation on decryption output
+    /**
+     * Method makes a call to Google Translate API based upon the selected value of the translation dropdown.
+     * @param event Run Translation button is clicked 
+     */
     @FXML
     public void translateButtonAction(ActionEvent event)
     {

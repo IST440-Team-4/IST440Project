@@ -79,6 +79,11 @@ public class LogInFXMLController implements Initializable {
         // TODO
     }
 
+    /**
+     * 
+     * @param event
+     * @throws Exception 
+     */
     @FXML
     public void Login(ActionEvent event) throws Exception
     {

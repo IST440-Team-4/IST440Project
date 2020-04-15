@@ -9,16 +9,23 @@ import java.io.IOException;
 import java.util.logging.Level;
 
 /**
- *
- * @author austi
+ * Caesar Cipher is an encryption method that shifts characters down the alphabet by a set value
+ * @author AJL5818
  */
 public class CaesarBruteForce 
 {
+    /**
+     * Constructs an object to brute force Caesar Cipher shifts
+     * String input is converted into an array of characters
+     * Shifting is achieved through the use of loops and performing mathematical calculations on the ASCII values of the characters
+     * @param ciphertext encoded text result from OCR scan
+     * @return Characters are concatenated back into strings and the method returns one string with all possible values separated by new lines.
+     */
     public static String Caesar (String ciphertext)
     {
         String text="";
         String returnString="";
-        String c = ciphertext;
+        String c = ciphertext.toLowerCase();
         char charCipherText [] = c.toCharArray();
         int index =0;
         char chr;
