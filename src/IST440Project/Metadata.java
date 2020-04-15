@@ -30,22 +30,18 @@ import org.apache.commons.imaging.formats.tiff.taginfos.TagInfo;
 import org.apache.commons.imaging.formats.tiff.constants.TiffTagConstants;
 import org.apache.commons.imaging.formats.tiff.constants.MicrosoftTagConstants;
 
-/*
- *  Metadata
- *
- *  Description:
- *    The metadata class is an object representing all the metadata
- *    for an associated file.
+/**
+ * The Metadata class describes an object representing all the supported 
+ * metadata for an associated image file. The Metadata class uses the Apache
+ * Commons Imaging API to read the image metadata. Currently the Metadata Class
+ * only supports the jpeg, png, and pdf image file format. Not all metadata fields 
+ * are currently implemented at this time.
  * 
- *  Contributors:
- *    Austin J. Lonjin (AJL)
- *    William E. Morris (WEM)
- *    Joshua Sadecky (JS)
- *    Robert Sanders (RS)
- *    Simon S. Stroh (SSS)
- *      
- *  Changes:
- *    02/07/20   Initial Release                             AJL,WEM,JS,RS,SSS
+ * @author Austin J. Lonjin
+ * @author William E. Morris
+ * @author Joshua Sadecky
+ * @author Robert Sanders
+ * @author Simon S. Stroh
  */
 public class Metadata {
     
@@ -60,13 +56,14 @@ public class Metadata {
     private String imageAuthor;
     
     /**
-     * Default Constructor for a Metadata Object
+     * Constructs a new Metadata object, from the specified image file.
      * 
-     * @param imageFile file object of image
+     * @param imageFile a support image file.
      */
     public Metadata (File imageFile) {
         
         // TODO need to assign default values, then extract
+        
         // Intialize Class Variables
         this.setImageName(imageFile.getName());
         this.setImageSize(imageFile.length());
@@ -82,10 +79,13 @@ public class Metadata {
         
     } // Metadata (imageFile)    
 
+
     /**
-     * Extract Metadata from file and assign values to class variables
+     * Will parse the image metadata into separate fields, and store
+     * in class variables.
      * 
-     * @param imageFile file object of image
+     * @param metadata image file metadata 
+     * @throws ImageReadException 
      */
     private void extractMetadata (ImageMetadata metadata) 
             throws ImageReadException {
@@ -94,8 +94,7 @@ public class Metadata {
         TagInfo tagInfo;
         TiffField field;
         String[] arrOfDateTime;
-        
-                
+                        
         // Extract File Metadata             
         if (metadata instanceof JpegImageMetadata) {
             
@@ -131,7 +130,7 @@ public class Metadata {
     /**
      * Will return a String representing the Author of the image
      * 
-     * @return the imageAuthor
+     * @return String of the image author.
      */
     public String getImageAuthor () {
         
@@ -143,7 +142,7 @@ public class Metadata {
      * Will return a String representing the Date of the image
      * in the form of MM/DD/YYYY
      * 
-     * @return the imageDate
+     * @return String of the image date "MM/DD/YYYY".
      */
     public String getImageDate () {
         
@@ -154,7 +153,7 @@ public class Metadata {
     /**
      * Will return a String representing the filename of the image
      * 
-     * @return the imageName
+     * @return String of the image name.
      */
     public String getImageName () {
         
@@ -166,7 +165,7 @@ public class Metadata {
     /**
      * Will return a integer representing the size of the image
      * 
-     * @return the imageSize
+     * @return long of the image size.
      */
     public long getImageSize () {
         
@@ -178,7 +177,7 @@ public class Metadata {
      * Will return a String representing the Time of the image
      * in the for of HH:MM:SS
      * 
-     * @return the imageTime
+     * @return String of the image time in formated as "HH:MM:SS".
      */
     public String getImageTime () {
         
@@ -189,7 +188,7 @@ public class Metadata {
     /**
      * Will return a String representing the image type
      * 
-     * @return the imageType
+     * @return String of the image type.
      */
     public String getImageType () {
         
@@ -216,7 +215,7 @@ public class Metadata {
      * Will probe the file to determine the file's mime type.
      * 
      * @param parFileName filename of file to probe
-     * @return fileType
+     * @return String of the file type returned by probeContentType.
      */
     private static String probeFileType (String parFileName) {
 
@@ -245,7 +244,7 @@ public class Metadata {
     /**
      * Will assign the passed String to imageAuthor
      * 
-     * @param imageAuthor the imageAuthor to set
+     * @param imageAuthor the imageAuther to set
      */
     private void setImageAuthor (String imageAuthor) {
         
@@ -307,11 +306,11 @@ public class Metadata {
         this.imageType = imageType;
         
     } // setImageType ()
-    
+
     /**
      * Will return a string representing the image metadata
      * 
-     * @return string representing the image metadata
+     * @return String representing the image file metadata
      */
     @Override
     public String toString () {
