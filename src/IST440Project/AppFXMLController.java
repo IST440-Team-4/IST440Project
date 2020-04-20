@@ -14,10 +14,15 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
 
 /**
@@ -60,11 +65,53 @@ public class AppFXMLController implements Initializable {
     String ocrResult;
     
     /**
-     * 
-     * @param event
+     * Will perform the actions required when the user selects
+     * the Help -> About menu item.
      */
     @FXML
-    private void handleMenuAbout (ActionEvent event) {
+    private void handleMenuAbout () {
+        
+        // Local Variables
+        Alert alert;                         // About Dialog Box
+        
+        // Initialize Local Variables
+        alert = new Alert (AlertType.INFORMATION, "", ButtonType.CLOSE);
+        
+        // Set parameters for About Dialog Box
+        alert.setTitle("About");
+        alert.setHeaderText("About");
+        alert.setResizable(true);
+        alert.getDialogPane().setPrefSize(400, 600);
+                        
+        // Set text for the About text dialog
+        alert.setContentText("LionCipher is an application developed by Team 4"
+                + "\nas part of the IST440 Capstone project. The LionCipher"
+                + "\napplication will decrypt a previously handwritten encrypted"
+                + "\nmessage. The LionCipher application also has the ability to"
+                + "\ntranslate messages written in foreign languages."
+                + "\n\nContributors:"
+                + "\n    Austin J. Lonjin"
+                + "\n    William E. Morris (WEM)"
+                + "\n    Joshua Sadecky (JS)"
+                + "\n    Robert Sanders (RS)"
+                + "\n    Simon S. Stroh (SSS)"
+                + "\n\nLicensed under the Apache License, Version 2.0 "
+                + "(the \"License\");"
+                + "\nyou may not use this  except in compliance with "
+                + "the License."
+                + "\nYou may obtain a copy of the License at"
+                + "\n\n          http://www.apache.org/licenses/LICENSE-2.0"
+                + "\n\nUnless required by applicable law or agreed to in "
+                + "writing, software"
+                + "\ndistributed under the License is distributed on "
+                + "an \"AS IS\" BASIS,"
+                + "\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either "
+                + "\nexpress or implied. See the License for the specific "
+                + "language governing "
+                + "\npermissions and limitations under the License.\n"); 
+       
+        // Display About Dialog Box and wait for close
+        alert.showAndWait();
         
     } // handleMenuAbout ()
       
@@ -79,7 +126,7 @@ public class AppFXMLController implements Initializable {
     
     /**
      * Will perform the actions required when the user selects
-     * the File Open Menu, or selects the Open Image button.
+     * the File -> Open menu item, or selects the Open Image button.
      */
     @FXML
     private void handleMenuOpen () {
