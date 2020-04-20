@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -116,11 +117,14 @@ public class AppFXMLController implements Initializable {
     } // handleMenuAbout ()
       
     /**
-     * 
-     * @param event 
+     * Will perform the actions required when the user selects
+     * the File -> Exit menu item.
      */
     @FXML
-    private void handleMenuExit (ActionEvent event) {  
+    private void handleMenuExit () {
+        
+        Platform.exit();
+        System.exit(0);
         
     } // handleMenuExit ()
     
