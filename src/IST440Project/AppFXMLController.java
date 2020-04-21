@@ -8,6 +8,7 @@ package IST440Project;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -140,11 +141,47 @@ public class AppFXMLController implements Initializable {
     } // handleMenuOpen ()
     
     /**
-     * 
-     * @param event 
+     * Will perform the actions required when the user selects
+     * the File -> Save menu item.
      */
     @FXML
-    private void handleMenuSave (ActionEvent event) {
+    private void handleMenuSave () {
+        
+        // Local Variables
+        FileChooser fc;
+        File file;
+        
+        // Initialize Local Variables
+        fc = new FileChooser();
+        fc.setTitle("Save Image");
+        
+        // If source file is not null then display Save Dialog
+        if (ocrInput != null) {
+            
+            // Set file defaults
+            fc.setInitialDirectory(ocrInput.getParentFile());
+            fc.setInitialFileName(ocrInput.getName());
+            fc.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("JPEG Files", "*.jpg"),
+                    new FileChooser.ExtensionFilter("PNG Files", "*.png"),
+                    new FileChooser.ExtensionFilter("PDF Files", "*.pdf"),
+                    new FileChooser.ExtensionFilter("All Files", "*.*")
+            );
+                        
+            // Display File Chooser Dialog and store results
+            file = fc.showSaveDialog(null);
+          
+            // If destination file is not null then save               
+            if (file != null) {
+                try {
+                    Files.copy(ocrInput.toPath(), file.toPath());
+                } catch (IOException ex) {
+                    Logger.getLogger(AppFXMLController.class.getName()).
+                            log(Level.SEVERE, null, ex);
+                }
+            }
+            
+        } // if (ocrInput != null)
         
     } // handleMenuSave ()
        
