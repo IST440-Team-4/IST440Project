@@ -209,11 +209,18 @@ public class AppFXMLController implements Initializable {
                 try {
                     Files.copy(ocrInput.toPath(), file.toPath());
                 } catch (IOException ex) {
+                    displayAlert ("Save Image", "ERROR", "An unexpected error "
+                            + "has occured.");
                     Logger.getLogger(AppFXMLController.class.getName()).
                             log(Level.SEVERE, null, ex);
                 }
             }
-
+            
+        }  else {
+            
+            displayAlert ("Save Image", "ERROR", "An image file is not "
+                    + "currently open! Please open and image file first.");
+            
         } // if (ocrInput != null)
         
     } // handleMenuSave ()
@@ -253,18 +260,26 @@ public class AppFXMLController implements Initializable {
     
     //Takes File Input from FileButtonAction Method and runs OCR
     @FXML
-    public void ocrButtonAction(ActionEvent event)
-    {         
-        try 
-        {
-            ocrResult = OCR.Tesseract(ocrInput);
-        } 
-        catch (IOException ex) 
-        {
-            Logger.getLogger(MainApp.class.getName()).log(Level.SEVERE, null, ex);
+    public void ocrButtonAction (ActionEvent event) {        
+        
+        if (ocrInput != null) {
+            
+            try {
+                ocrResult = OCR.Tesseract(ocrInput);
+            } catch (IOException ex) {
+                Logger.getLogger(MainApp.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            ocrOutput.setText(ocrResult);
+        
+        } else {
+            
+            displayAlert ("Save Image", "ERROR", "An image file is not "
+                    + "currently open! Please open and image file first.");
+            
         }
-        ocrOutput.setText(ocrResult);
-    }
+        
+    } // ocrButtonAction ()
     
     /**
      * Will display a open File dialog for the user to select an image file. 
