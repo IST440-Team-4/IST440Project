@@ -25,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 /**
@@ -65,6 +66,38 @@ public class AppFXMLController implements Initializable {
 
     File ocrInput;
     String ocrResult;
+    
+    /**
+     * Will display an alert dialog with the passed Title, Header, and
+     * Message. 
+     * 
+     * @param String of the title to display in the alert dialog box.
+     * @param String of the header to display in the alert dialog box.
+     * @param String of the message to display in the alert dialog box.
+     */
+    private void displayAlert (String alertTitle, String alertHeader, 
+            String alertMessage) {
+        
+        // Local Variables
+        Alert alert;                        // Alert Dialog Box
+        int defaultHeight;                  // Default Height of Alert Dialog Box
+        int defaultWidth;                   // Default Width of Alert Dialog Box
+        
+        // Initialize Local Variables
+        alert = new Alert (AlertType.ERROR, alertMessage);
+        defaultHeight = 200;
+        defaultWidth = 400;
+        
+        // Set parameters for Alert Dialog Box
+        alert.setTitle(alertTitle);
+        alert.setHeaderText(alertHeader);
+        alert.setResizable(true);
+        alert.getDialogPane().setPrefSize(defaultWidth, defaultHeight);
+                  
+        // Display Alert Dialog Box
+        alert.showAndWait();
+        
+    } // displayAlert ()
     
     /**
      * Will perform the actions required when the user selects
@@ -180,7 +213,7 @@ public class AppFXMLController implements Initializable {
                             log(Level.SEVERE, null, ex);
                 }
             }
-            
+
         } // if (ocrInput != null)
         
     } // handleMenuSave ()
