@@ -186,7 +186,7 @@ public class AppFXMLController implements Initializable {
         
         // Initialize Local Variables
         fc = new FileChooser();
-        fc.setTitle("Save Image");
+        fc.setTitle("Save Image File");
         
         // If source file is not null then display Save Dialog
         if (ocrInput != null) {
@@ -220,21 +220,11 @@ public class AppFXMLController implements Initializable {
        
     //Allows user to browse for file to pass into OCR scanner
     @FXML
-    public void FileButtonAction(ActionEvent event)
-    {
-        FileChooser fc = new FileChooser(); //Create Filechooser object
-        ocrInput = fc.showOpenDialog(null); //Sets ocrInput as whatever the selected file is
+    public void FileButtonAction (ActionEvent event) {
         
-        if (ocrInput != null)
-        {
-            FilePath.setText(ocrInput.getName());
-        }
-        else
-        {
-            FilePath.setText("Error");
-        }
+        openImageFile ();
         
-    }
+    } // FileButtonAction ()
     
     /**
      * Will verify if the passed file object is a valid image file
@@ -289,13 +279,21 @@ public class AppFXMLController implements Initializable {
         // Initialize Local Variables
         fc = new FileChooser();
         
+        // Set FileChooser parameters
+        fc.setTitle("Open Image File");
+        fc.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("JPEG Files", "*.jpg"),
+            new FileChooser.ExtensionFilter("PNG Files", "*.png"),
+            new FileChooser.ExtensionFilter("PDF Files", "*.pdf"),
+            new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
+        
         // Display File Chooser Dialog and store results
         ocrInput = fc.showOpenDialog(null);
         
         if (isImageFileValid (ocrInput)) {
             FilePath.setText(ocrInput.getName());
         } else {
-            // TODO: Add error dialog box, and logging
             FilePath.setText("Error");
         }
     
