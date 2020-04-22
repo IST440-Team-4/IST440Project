@@ -32,6 +32,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.logging.Level;
 
 /*
  *  FXML Controller class
@@ -49,6 +50,12 @@ import java.net.URL;
  *  Changes:
  *    02/07/20   Initial Release                             AJL,WEM,JS,RS,SSS
  */
+
+/**
+ *
+ * @author austi
+ */
+
 public class LogInFXMLController implements Initializable {
 
     @FXML
@@ -72,12 +79,21 @@ public class LogInFXMLController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
 
+    /**
+     * Establishes connection to server hosted in Google Cloud Services
+     * POST command sends Username and Password to the server, which checks for a match and returns a response code
+     * Response code is verified and user is granted access to the system, or error message is displayed.
+     * @param event
+     * @throws Exception 
+     */
     @FXML
     public void Login(ActionEvent event) throws Exception
     {
@@ -109,5 +125,13 @@ public class LogInFXMLController implements Initializable {
           loginstatus.setText("Incorrect Username or Password.");
         }
 
+    }
+    
+    /**
+     *
+     * @throws IOException
+     */
+    public LogInFXMLController() throws IOException {
+        AppLogger.log(Level.INFO, AppLogger.class.getName());
     }
 }

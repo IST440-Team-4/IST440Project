@@ -5,15 +5,25 @@
  */
 package IST440Project;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
- *
- * @author austi
+ * Encrypted messages may simply have characters out of order. Generating all permutations will break this form of encryption.
+ * @author AJL5818
  */
 public class WordDescramble 
 {
+    /**
+     * Constructs an object to decrypt scrambled strings through posting all possible permutations of the string
+     * Each character of input string is converted into a string and added to ArrayList
+     * Nested for loop structure first cycles through initial character, then iterates through all possible character combinations after the initial character.
+     * Final for loop converts ArrayList of string values into one string delineated by new lines
+     * @param scrambledText
+     * @return String with all possible values separated by new lines
+     */
     public static String WordDescrambler(String scrambledText)
     {
         String returnString ="";
@@ -44,4 +54,13 @@ public class WordDescramble
         returnString = sb.toString();
         return returnString;
     }    
+
+    /**
+     *
+     * @throws IOException
+     */
+    public WordDescramble() throws IOException {
+        AppLogger.log(Level.INFO, AppLogger.class.getName());
+    }
+    
 }

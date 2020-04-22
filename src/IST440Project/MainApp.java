@@ -40,8 +40,19 @@ import javafx.stage.Stage;
  *  Changes:
  *    02/07/20   Initial Release                             AJL,WEM,JS,RS,SSS
  */
+
+/**
+ *
+ * @author austi
+ */
+
 public class MainApp extends Application {
 
+    /**
+     *
+     * @param stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         
@@ -52,10 +63,21 @@ public class MainApp extends Application {
       stage.show();
     }
     
+    /**
+     *
+     * @throws IOException
+     */
+    public MainApp() throws IOException {
+        AppLogger.log(Level.INFO, AppLogger.class.getName());
+    }
+    
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) 
     {   
         launch(args);
-        WordDescramble.WordDescrambler("abb");
     }
     
 } // MainApp ()

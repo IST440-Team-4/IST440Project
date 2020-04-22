@@ -16,6 +16,7 @@ package IST440Project;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
@@ -36,9 +37,21 @@ import net.sourceforge.tess4j.TesseractException;
  *  Changes:
  *    02/07/20   Initial Release                             AJL,WEM,JS,RS,SSS
  */
+
+/**
+ *
+ * @author austi
+ */
+
 public class OCR {
     
-  public static String Tesseract (File ocrInput) throws IOException {
+    /**
+     *
+     * @param ocrInput
+     * @return
+     * @throws IOException
+     */
+    public static String Tesseract (File ocrInput) throws IOException {
       
       String result="";
       File imageFile = ocrInput;
@@ -57,5 +70,13 @@ public class OCR {
       return result;
     
     } // Tesseract ()
+  
+    /**
+     *
+     * @throws IOException
+     */
+    public OCR() throws IOException {
+        AppLogger.log(Level.INFO, AppLogger.class.getName());
+    }
   
  } // OCR Class
