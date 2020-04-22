@@ -16,11 +16,13 @@ package IST440Project;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.image.Image;
 import org.apache.commons.imaging.ImageReadException;
 import org.apache.commons.imaging.Imaging;
 import org.apache.commons.imaging.common.ImageMetadata;
@@ -48,6 +50,7 @@ public class Metadata {
     // Class Variables
     private ImageMetadata metadata;
     private JpegImageMetadata jpegMetadata;
+    private Image imagePreview;
     private String imageDate;
     private String imageTime;
     private long imageSize;
@@ -68,17 +71,9 @@ public class Metadata {
         this.setImageName(imageFile.getName());
         this.setImageSize(imageFile.length());
         this.setImageType(Metadata.probeFileType(imageFile.getName()));
-
-        // Extract Image Metadata 
-        try {
-            this.metadata = Imaging.getMetadata (imageFile);
-            this.extractMetadata(metadata);
-        } catch (ImageReadException | IOException ex) {
-            Logger.getLogger(Metadata.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.extractMetadata(imageFile);
         
     } // Metadata (imageFile)    
-
 
     /**
      * Will parse the image metadata into separate fields, and store
@@ -87,43 +82,77 @@ public class Metadata {
      * @param metadata image file metadata 
      * @throws ImageReadException 
      */
-    private void extractMetadata (ImageMetadata metadata) 
-            throws ImageReadException {
+    private void extractMetadata (File imageFile) {
         
         // Declare Local Variables
         TagInfo tagInfo;
         TiffField field;
         String[] arrOfDateTime;
-                        
-        // Extract File Metadata             
-        if (metadata instanceof JpegImageMetadata) {
+        String author;
+        String date;
+        String time;
+        Image preview;
+ 
+        // Initialize Local Variables
+        author = "unknown";
+        date = "0000:00:00";
+        time = "00:00:00";
+                
+        // Initialize Default Preview
+        preview = new Image ("file:./assets/images/preview.jpg", 
+                293, 171, false, true);
+        
+        // Based on file type extract format specific metadata        
+        if (this.getImageType().equals("image/jpeg")) {
             
-            jpegMetadata = (JpegImageMetadata) metadata;
-            
-            // Extract Author
-            tagInfo = MicrosoftTagConstants.EXIF_TAG_XPAUTHOR;
-            field = jpegMetadata.findEXIFValueWithExactMatch(tagInfo);
-            if (field == null) {
-                this.setImageAuthor("unknown");
-            } else {
-                this.setImageAuthor(field.getStringValue());
-            }
-            
-            // Extract Date & Time
-            tagInfo = TiffTagConstants.TIFF_TAG_DATE_TIME;
-            field = jpegMetadata.findEXIFValueWithExactMatch(tagInfo);
-            if (field == null) {
-                this.setImageDate("0000:00:00");
-                this.setImageTime("00:00:00");
-            } else {
-                // TODO This is a hack, need to implement a better way of 
-                //      dealing with date/time
-                arrOfDateTime = field.getStringValue().split(" ", 2);
-                this.setImageDate(arrOfDateTime[0]);
-                this.setImageTime(arrOfDateTime[1]);
+            try {
+                
+                // Extract Image Metadata 
+                this.metadata = Imaging.getMetadata (imageFile);
+
+                // Extract File Metadata             
+                if (metadata instanceof JpegImageMetadata) {
+
+                    jpegMetadata = (JpegImageMetadata) metadata;
+
+                    // Extract Author
+                    tagInfo = MicrosoftTagConstants.EXIF_TAG_XPAUTHOR;
+                    field = jpegMetadata.findEXIFValueWithExactMatch(tagInfo);
+                    if (field != null) {
+                        author = field.getStringValue();
+                    }
+
+                    // Extract Date & Time
+                    tagInfo = TiffTagConstants.TIFF_TAG_DATE_TIME;
+                    field = jpegMetadata.findEXIFValueWithExactMatch(tagInfo);
+                    if (field != null) {
+                        // TODO This is a hack, need to implement a better way of 
+                        //      dealing with date/time
+                        arrOfDateTime = field.getStringValue().split(" ", 2);
+                        date = arrOfDateTime[0];
+                        time = arrOfDateTime[1];
+                    }
+
+                } // if (metadata)
+                
+                // Extract Image Preview
+                preview = new Image (imageFile.toURI().toURL().toString(), 
+                        293, 171, false, true);
+                
+            } catch (ImageReadException | IOException ex) {
+                Logger.getLogger(Metadata.class.getName()).
+                        log(Level.SEVERE, null, ex);
             }
 
-        }
+        } // if (getImageType())
+
+        // Set Metadata Fields
+        this.setImageAuthor(author);
+        this.setImageDate(date);
+        this.setImageTime(time);
+        this.setImagePreview(preview);
+        
+        // Create Image Preview
         
     } // extractMetadata ()
     
@@ -134,7 +163,7 @@ public class Metadata {
      */
     public String getImageAuthor () {
         
-        return imageAuthor;
+        return this.imageAuthor;
         
     } // getImageAuthor ()
 
@@ -146,7 +175,7 @@ public class Metadata {
      */
     public String getImageDate () {
         
-        return imageDate;
+        return this.imageDate;
         
     } // getImageDate ()
 
@@ -157,10 +186,20 @@ public class Metadata {
      */
     public String getImageName () {
         
-        return imageName;
+        return this.imageName;
         
     } // getImageName ()
-
+    
+    /**
+     * Will return a Image representing a preview of the image file.
+     * 
+     * @return Image which representing a preview of the image file.
+     */
+    public Image getImagePreview () {
+        
+        return this.imagePreview;
+        
+    } // getImagePreview ()
 
     /**
      * Will return a integer representing the size of the image
@@ -169,7 +208,7 @@ public class Metadata {
      */
     public long getImageSize () {
         
-        return imageSize;
+        return this.imageSize;
         
     } // getImageSize ();
 
@@ -181,7 +220,7 @@ public class Metadata {
      */
     public String getImageTime () {
         
-        return imageTime;
+        return this.imageTime;
         
     } // getImageTime ()
 
@@ -192,7 +231,7 @@ public class Metadata {
      */
     public String getImageType () {
         
-        return imageType;
+        return this.imageType;
         
     } // getImageType ()
     
@@ -273,6 +312,17 @@ public class Metadata {
         this.imageName = imageName;
         
     } // setImaageName ()
+    
+    /**
+     * Will assign the passed Image to imagePreview
+     * 
+     * @param imagePreview the Image to set 
+     */
+    private void setImagePreview (Image imagePreview) {
+        
+        this.imagePreview = imagePreview;
+        
+    } // setImagePreview ()
 
     /**
      * Will assign the passed long to imageSize
