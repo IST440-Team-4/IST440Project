@@ -18,6 +18,7 @@ public class CaesarBruteForce
      * Constructs an object to brute force Caesar Cipher shifts
      * String input is converted into an array of characters
      * Shifting is achieved through the use of loops and performing mathematical calculations on the ASCII values of the characters
+     * Input is forced into lowercase because uppercase ASCII values differ and mathematical calculations won't perform as intended.
      * @param ciphertext encoded text result from OCR scan
      * @return Characters are concatenated back into strings and the method returns one string with all possible values separated by new lines.
      */

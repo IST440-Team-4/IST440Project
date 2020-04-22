@@ -88,7 +88,9 @@ public class LogInFXMLController implements Initializable {
     }
 
     /**
-     * 
+     * Establishes connection to server hosted in Google Cloud Services
+     * POST command sends Username and Password to the server, which checks for a match and returns a response code
+     * Response code is verified and user is granted access to the system, or error message is displayed.
      * @param event
      * @throws Exception 
      */

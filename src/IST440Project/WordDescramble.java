@@ -19,7 +19,7 @@ public class WordDescramble
     /**
      * Constructs an object to decrypt scrambled strings through posting all possible permutations of the string
      * Each character of input string is converted into a string and added to ArrayList
-     * Nested for loop structure cycles through all characters of input and concatenates all possible variations of characters.
+     * Nested for loop structure first cycles through initial character, then iterates through all possible character combinations after the initial character.
      * Final for loop converts ArrayList of string values into one string delineated by new lines
      * @param scrambledText
      * @return String with all possible values separated by new lines
