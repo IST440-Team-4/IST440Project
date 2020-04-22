@@ -7,6 +7,7 @@ package IST440Project;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.ResourceBundle;
@@ -23,6 +24,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
@@ -64,6 +67,20 @@ public class AppFXMLController implements Initializable {
     private TextArea translationOutput;
     @FXML
     private TextArea ocrOutput;
+    
+    //Initialize Metadata Labels
+    @FXML
+    private Label imageNameLabel;
+    @FXML
+    private Label imageTypeLabel;
+    @FXML
+    private Label imageAuthorLabel;
+    @FXML
+    private Label imageDateLabel;
+    @FXML
+    private Label imageSizeLabel;
+    @FXML
+    private ImageView imageView;
 
     File ocrInput;
     String ocrResult;
@@ -298,6 +315,7 @@ public class AppFXMLController implements Initializable {
         
         // Local Variables
         FileChooser fc;
+        Metadata imageMetadata;
         
         // Initialize Local Variables
         fc = new FileChooser();
@@ -315,9 +333,25 @@ public class AppFXMLController implements Initializable {
         ocrInput = fc.showOpenDialog(null);
         
         if (isImageFileValid (ocrInput)) {
+            
             FilePath.setText(ocrInput.getName());
+            
+            // Retrieve Metadata from file
+            imageMetadata = new Metadata (ocrInput);
+            
+            // Set Metadata Labels
+            imageNameLabel.setText(imageMetadata.getImageName());
+            imageTypeLabel.setText(imageMetadata.getImageType());
+            imageAuthorLabel.setText(imageMetadata.getImageAuthor());
+            imageDateLabel.setText(imageMetadata.getImageDate());
+            imageSizeLabel.setText(String.format("%,d", 
+                    imageMetadata.getImageSize()));
+            imageView.setImage(imageMetadata.getImagePreview());
+                        
         } else {
+            
             FilePath.setText("Error");
+            
         }
     
     } // openImageFile ()
