@@ -23,6 +23,7 @@
             <items>
                 <MenuItem mnemonicParsing="false" onAction="#handleMenuOpen" text="Open" />
                 <MenuItem mnemonicParsing="false" onAction="#handleMenuSave" text="Save" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleMenuReset" text="Reset" />
                 <SeparatorMenuItem mnemonicParsing="false" />
                 <MenuItem mnemonicParsing="false" onAction="#handleMenuExit" text="Exit" />
             </items>
@@ -51,7 +52,7 @@
       <Button fx:id="decryptButton" layoutX="301.0" layoutY="157.0" mnemonicParsing="false" onAction="#decryptionButtonaction" text="Run Decryption" />
       <TextArea fx:id="decryptionOutput" layoutX="253.0" layoutY="188.0" prefHeight="304.0" prefWidth="195.0" />
       <TextArea fx:id="translationOutput" layoutX="480.0" layoutY="188.0" prefHeight="304.0" prefWidth="195.0" />
-      <Button fx:id="translateButton" layoutX="528.0" layoutY="157.0" mnemonicParsing="false" text="Run Translation" />
+      <Button fx:id="translateButton" layoutX="528.0" layoutY="157.0" mnemonicParsing="false" onAction="#translateButtonAction" text="Run Translation" />
       <ChoiceBox fx:id="languageChooser" layoutX="503.0" layoutY="127.0" prefWidth="150.0" />
       <Label layoutX="21.0" layoutY="514.0" text="Image Details" textFill="WHITE">
          <font>
