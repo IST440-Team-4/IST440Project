@@ -56,8 +56,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         
-//      Parent root = FXMLLoader.load(getClass().getResource("LogInFXML.fxml"));
-      Parent root = FXMLLoader.load(getClass().getResource("AppFXML.fxml"));
+      Parent root = FXMLLoader.load(getClass().getResource("LogInFXML.fxml"));
       Scene scene = new Scene(root);
       stage.setTitle("Decryption App");
       stage.setScene(scene);
