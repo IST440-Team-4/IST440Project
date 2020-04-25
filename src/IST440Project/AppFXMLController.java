@@ -1,13 +1,21 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *          http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
 package IST440Project;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.ResourceBundle;
@@ -24,16 +32,13 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class for main application window
- * Contains all action listeners for buttons within main application window and calls all appropriate methods
+ * Contains all action listeners for buttons within main 
+ * application window and calls all appropriate methods.
  *
  * @author AJL5818
  */
@@ -192,6 +197,28 @@ public class AppFXMLController implements Initializable {
     } // handleMenuOpen ()
     
     /**
+     * Will reset all fields to the default when the user selects
+     * the File -> Reset menu item.
+     */
+    @FXML
+    private void handleMenuReset () {
+        
+        ocrOutput.setText("");
+        decryptionOutput.setText("");
+        translationOutput.setText("");
+        decryptionChooser.getSelectionModel().clearSelection();
+        languageChooser.getSelectionModel().clearSelection();
+        FilePath.setText("");
+        imageNameLabel.setText("");
+        imageTypeLabel.setText("");
+        imageAuthorLabel.setText("");
+        imageDateLabel.setText("");
+        imageSizeLabel.setText("");
+        imageView.imageProperty().set(null);
+        
+    } // handleMenuReset ()
+    
+    /**
      * Will perform the actions required when the user selects
      * the File -> Save menu item.
      */
@@ -245,7 +272,9 @@ public class AppFXMLController implements Initializable {
 
     /** 
      * Constructs FileChooser object
-     * Allows for users to navigate to image file of encrypted text on their system
+     * Allows for users to navigate to image file of encrypted 
+     * text on their system
+     * 
      * @param event Select File button is clicked
      */
     @FXML
@@ -292,7 +321,8 @@ public class AppFXMLController implements Initializable {
             try {
                 ocrResult = OCR.Tesseract(ocrInput);
             } catch (IOException ex) {
-                Logger.getLogger(MainApp.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MainApp.class.getName()).
+                        log(Level.SEVERE, null, ex);
             }
             
             ocrOutput.setText(ocrResult);
@@ -357,40 +387,105 @@ public class AppFXMLController implements Initializable {
     } // openImageFile ()
     
     /**
-     * This method calls various decryption methods based upon the selected value in the Decryption Selection dropdown.
+     * This method calls various decryption methods based upon the selected 
+     * value in the Decryption Selection dropdown.
+     * 
      * @param event Run Decryption button is clicked
      */
     @FXML
-    public void decryptionButtonaction(ActionEvent event)
-    {
-        String decryptionChoice = decryptionChooser.getValue().toString();
-        String encryptedText = ocrResult.trim();
-        if (decryptionChoice.equals("Caesar"))
-        {
-            decryptionOutput.setText(CaesarBruteForce.Caesar(encryptedText));
+    public void decryptionButtonaction (ActionEvent event) {
+        
+        // Local Variables
+        String decryptionChoice;             // Decryption Type Selected
+        String encryptedText;                // Text for OCR Textarea
+        
+        // Initialize Local Variables
+        decryptionChoice = "";
+        encryptedText = "";
+        
+        // Validate that decryption choice selected. 
+        if (decryptionChooser.getValue() == null) {
+            displayAlert ("Run Decryption", "ERROR", "Please select a "
+                    + "Decryption method, and try again.");
+            return;
+        } else {
+            decryptionChoice = decryptionChooser.getValue().toString();
         }
         
-        else if (decryptionChoice.equals("Atbash"))
-        {
-            decryptionOutput.setText(Atbash.AtbashDecrypt(encryptedText.toUpperCase()));
+        // Validated that the ocrOutput textarea has text
+        if (ocrOutput.getText().trim().length() == 0) {
+            displayAlert ("Run Decryption", "ERROR", "No OCR data. Please "
+                    + "perform an OCR Scan on an image file first, and then "
+                    + "try again.");
+            return;
+        } else {
+            encryptedText = ocrOutput.getText().trim();
         }
-        
-        else if (decryptionChoice.equals("Word Scramble"))
-        {
-            decryptionOutput.setText(WordDescramble.WordDescrambler(encryptedText));
+               
+        // Perform decryption 
+        switch (decryptionChoice) {
+            case "Caesar":
+                decryptionOutput.setText(CaesarBruteForce.
+                        Caesar(encryptedText));
+                break;
+            case "Atbash":
+                decryptionOutput.setText(Atbash.
+                        AtbashDecrypt(encryptedText.toUpperCase()));
+                break;
+            case "Word Scramble":
+                decryptionOutput.setText(WordDescramble.
+                        WordDescrambler(encryptedText));
+                break;
+            default:
+                break;
         }
-    }
+
+    } // decryptionButtonaction ()
     
     /**
-     * Method makes a call to Google Translate API based upon the selected value of the translation dropdown.
+     * Method makes a call to Google Translate API based upon 
+     * the selected value of the translation dropdown.
+     * 
      * @param event Run Translation button is clicked 
      */
     @FXML
-    public void translateButtonAction(ActionEvent event)
-    {
+    public void translateButtonAction (ActionEvent event) {
         
-    }
-    
+        // Local Variables
+        String translationChoice;            // Translation Type Selected
+        String decryptedText;                // Decrypted Text
+                
+        // Initialize Local Variables
+        translationChoice = "";
+        decryptedText = "";
+        
+        // Validate that translation type is selected. 
+        if (languageChooser.getValue() == null) {
+            displayAlert ("Run Translation", "ERROR", "Please select the "
+                    + "language of the message to translate.");
+            return;
+        } else {
+            translationChoice = languageChooser.getValue().toString();
+        }
+        
+        // Validated that the ocrOutput textarea has text
+        if (decryptionOutput.getSelectedText().trim().length() == 0) {
+            displayAlert ("Run Translation", "ERROR", "No message text. Please "
+                    + "select the decryption text to translate, and then "
+                    + "try again.");
+            return;
+        } else {
+            decryptedText = decryptionOutput.getSelectedText().trim();
+        }
+        
+        // Translate Text, and display results
+        try {
+            translationOutput.setText(Translate.translateText(decryptedText));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+                        
+    } // translateButtonAction ()
     
     /**
      * Initializes the controller class.
@@ -405,9 +500,9 @@ public class AppFXMLController implements Initializable {
         decryptionChooser.getItems().add("Word Scramble");
         
         //Add options to translation dropdown
-        languageChooser.getItems().add("Spanish to English");
-        languageChooser.getItems().add("French to English");
-        languageChooser.getItems().add("German to English");
+        languageChooser.getItems().add("French");
+        languageChooser.getItems().add("German");
+        languageChooser.getItems().add("Spanish");
     }    
     
     /**
@@ -417,4 +512,5 @@ public class AppFXMLController implements Initializable {
     public AppFXMLController() throws IOException {
         AppLogger.log(Level.INFO, AppLogger.class.getName());
     } 
-}
+    
+} // Class AppFXMLController 
